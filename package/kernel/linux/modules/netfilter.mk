@@ -618,6 +618,21 @@ endef
 
 $(eval $(call KernelPackage,nf-nathelper-extra))
 
+define KernelPackage/nf-nathelper-netlink
+  SUBMENU:=$(NF_MENU)
+  TITLE:=Connection tracking userspace netlink helper support
+  FILES:=$(LINUX_DIR)/net/netfilter/nfnetlink_cthelper.ko
+  KCONFIG:=CONFIG_NF_CT_NETLINK_HELPER
+  AUTOLOAD:=$(call AutoProbe,nfnetlink_cthelper)
+  DEPENDS:=+kmod-nf-conntrack-netlink +kmod-nfnetlink-queue
+endef
+
+define KernelPackage/nf-nathelper-netlink/description
+ Netlink (Userspace) Netfilter (IPv4) Conntrack and NAT helpers
+endef
+
+$(eval $(call KernelPackage,nf-nathelper-netlink))
+
 
 define KernelPackage/ipt-nflog
   TITLE:=Module for user-space packet logging
